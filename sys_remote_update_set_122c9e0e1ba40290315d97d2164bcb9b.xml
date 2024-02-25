@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2024-02-25 17:29:13">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description/>
+<inserted/>
+<name>ServiceNow_Notification_Use_Case_1_v1.0</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>601796421ba40290315d97d2164bcb2f</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>ms236096</sys_created_by>
+<sys_created_on>2024-02-25 17:29:12</sys_created_on>
+<sys_id>122c9e0e1ba40290315d97d2164bcb9b</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>ms236096</sys_updated_by>
+<sys_updated_on>2024-02-25 17:29:12</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_email_993b03cf1b180e50315d97d2164bcb25</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_email"&gt;&lt;sys_script_email action="INSERT_OR_UPDATE"&gt;&lt;name&gt;entitlements_expiration_template&lt;/name&gt;&lt;new_lines_to_html&gt;false&lt;/new_lines_to_html&gt;&lt;script&gt;&lt;![CDATA[(function runMailScript( /* GlideRecord */ current, /* TemplatePrinter */ template,
+    /* Optional EmailOutbound */
+    email, /* Optional GlideRecord */ email_action,
+    /* Optional GlideRecord */
+    event) {
+    var val = event.parm1.split(',');
+    template.print('&lt;table border="2"&gt;&lt;caption style="font-size:150%; font-weight:bold; font-family: Times New Roman, Times, serif; background: linear-gradient(to right, #F8D90F, #FE7A15); -webkit-text-fill-color: transparent;-webkit-background-clip: text;"&gt;License Details&lt;/caption&gt;');
+    template.print('&lt;tr style="background-color:white;"&gt;&lt;th&gt;Display Name&lt;/th&gt;Publisher&lt;th&gt;State&lt;/th&gt;&lt;th&gt;Active Rights&lt;/th&gt;&lt;th&gt;PO Number&lt;/th&gt;&lt;th&gt;End Date&lt;/th&gt;&lt;th&gt;Expires In&lt;/th&gt;&lt;/tr&gt;');
+    for (var i = 0; i &lt; val.length; i++) {
+        var gr = new GlideRecord('alm_license');
+        gr.addQuery('sys_id', val[i]);
+        gr.query();
+        if (gr.next()) {
+            var count = 0;
+            var elapsedTimeDiff = 0;
+            var currentTimeNow = new GlideDateTime();
+            var createdDate = new GlideDateTime(gr.end_date);
+            elapsedTimeDiff = GlideDateTime.subtract(currentTimeNow, createdDate);
+            var elapsedTime = parseInt(elapsedTimeDiff.getDayPart());
+            if (elapsedTime == 29) {
+                count = 30;
+            } else if (elapsedTime == 59) {
+                count = 60;
+            } else if (elapsedTime == 89) {
+                count = 90;
+            }
+            template.print('&lt;tr style="background-color: white"&gt;&lt;td style="width:35%;"&gt;' + gr.display_name + '&lt;/td&gt;&lt;td&gt;' + gr.software_model.manufacturer.getDisplayValue() + '&lt;/td&gt;&lt;td style="width:10%;"&gt;' + gr.getDisplayValue('install_status') + '&lt;/td&gt;&lt;td&gt;' + gr.rights + '&lt;/td&gt;&lt;td&gt;' + gr.po_number + '&lt;/td&gt;&lt;td style="width:15%;"&gt;' + gr.end_date + '&lt;/td&gt;&lt;td&gt;' + count + ' days' + '&lt;/td&gt;&lt;/tr&gt;');
+        }
+    }
+    template.print('&lt;/table&gt;');
+})(current, template, email, email_action, event);]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_email&lt;/sys_class_name&gt;&lt;sys_created_by&gt;ms236096&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-02-16 13:22:47&lt;/sys_created_on&gt;&lt;sys_id&gt;993b03cf1b180e50315d97d2164bcb25&lt;/sys_id&gt;&lt;sys_mod_count&gt;57&lt;/sys_mod_count&gt;&lt;sys_name&gt;entitlements_expiration_template&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_email_993b03cf1b180e50315d97d2164bcb25&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;ms236096&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-02-25 17:27:46&lt;/sys_updated_on&gt;&lt;/sys_script_email&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-892806089</payload_hash>
+<remote_update_set display_value="ServiceNow_Notification_Use_Case_1_v1.0">122c9e0e1ba40290315d97d2164bcb9b</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>ms236096</sys_created_by>
+<sys_created_on>2024-02-25 17:29:12</sys_created_on>
+<sys_id>122c9e0e1ba40290315d97d2164bcb9c</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>18de14efb7e0000001</sys_recorded_at>
+<sys_updated_by>ms236096</sys_updated_by>
+<sys_updated_on>2024-02-25 17:29:12</sys_updated_on>
+<table/>
+<target_name>entitlements_expiration_template</target_name>
+<type>Email Script</type>
+<update_domain>global</update_domain>
+<update_guid>55db5e0ef5a402900419e24d2c614345</update_guid>
+<update_guid_history>55db5e0ef5a402900419e24d2c614345:-892806089,125a528af5a402907bd68fc66a58cc17:551733105,4d5a1e4abda40290c641ceb2771b2ee6:363241031,2fce251c352c8a10b8517cbf82d18a5f:551733105,668e2d987c2c8a10b6d6fdcc8e036186:-1557718265,b83ee5d8ef2c8a104f8739b71a9ff861:1158107027,37fa9b404b208a1083bfb58f1e072bfc:366664083,7cba1780f6208a10c84b8c9aa50950c1:2120152369,2f6a574011208a10e5d076aa3815e034:-761346953,b8a9d3c826ec4a105d22ff40338ce778:-310428239,a5585b487bec4a10fbb21ea449833b95:9270938,a51ecbc8162c4a10ba9db6d7d6788605:2108910261,64edcbc8722c4a1068e426adef985467:472240783,155dcf48962c4a10887f101e71d1488d:794368027,b4ecc7489c2c4a10094a8fbe3b3a1e25:1803307664,a6656284ef280a107a0513aad32eb91e:-1812025394,68052a44fc280a10b19fd79641c034d0:1096441745,9944a24416280a10d558549eda0d88cb:-1432678651,b504e644d1280a1010c048f005f517a9:1317360262,93636e8043280a1052ff3e0fb3c4e362:250886577,e8f4da8c4f604a10b83d56ed9161061f:1865377982,39980a84a1a40a10a7ebf647edb11644:2059958950,fc560e80c7a40a108f0e2596d0dd6289:1015922881,3afd314ce2e00a10348260344341ed6d:-107459080,001c354cffa00a107a5c1f02115d25c0:-2068177319,30b9958065a4c610213deb0eca942c3c:-583730920,aa2919406ca4c6109820177452022a87:343686467,4eb81d0045a4c610c0a3d1fb1824c9ed:941507157,e138114012a4c6109aa861f3867736ee:-517553564,8de7190024a4c6107594750d88a7572f:-147797784,9f7799ccdc64c6100dddcdc808868e50:1601736979,4347d9ccaf64c61098aa4b959ce83f4a:-36361148,2c17598cb464c61050b8db4a9e93d306:1784912367,b1a6998ced64c6104cb442fc805aae7f:198124759,0d56d94ca764c610508be51953e47f29:-549110910,a6c5194c6b64c610cbdbe0dd6de6b6e8:-706588675,0e55dd0c6664c6107680cbfa03498594:1856853015,86e49908fe64c610922b690fed2f6bea:-257702081,0184d1884f64c610c4f502f52fad49b7:597370460,d344d1c43664c610358d84ce1b3c0c62:-71913890,c00459c02064c610f39dba4d8f4289fc:-741198240,1853d1408864c610c0c1470fc7229452:-2041256280,f4a299884824c6100f0807e109eb08cb:-719173003,3902d9486f24c6105bb14b58fda454d2:205160250,2c41d508e424c6101c09336582d5edec:-728432876,ea20ddc4fd24c61001b861a03dfc61b1:2099905662,f49f49848624c610a0cdb76709c8057c:1408264766,191f49849d24c61053e93d7dbd3fe784:-713309800,fe3ec544be24c6108583d2bfe68e934e:-1928578849,91ac85c8c5e0c610b985315b400edc5d:966121433,d33b4904d5e0c610a5acaf9cd89b61ad:826126901,9f675f8399980e50872091d5790d74ef:-1127884327,85e69703f6980e50105457ef11c4862e:1552249594,6d961f0300980e5083f472919d803a46:1100252797,88b593cfbb580e5029367f9d5da828e2:685971971,3494db8f12580e50a3536c851937d823:-27972592,ca1113cb44580e5014e65dc5758fd974:1570718595,c57d07c783580e50e8df510eeb22fb32:918842223</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sysevent_email_action_5b2afe831b540e50315d97d2164bcb21</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sysevent_email_action"&gt;&lt;sysevent_email_action action="INSERT_OR_UPDATE"&gt;&lt;action_insert&gt;false&lt;/action_insert&gt;&lt;action_update&gt;false&lt;/action_update&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_condition/&gt;&lt;affected_field_on_event/&gt;&lt;category display_value="Uncategorized" name="Uncategorized"&gt;c97d83137f4432005f58108c3ffa917a&lt;/category&gt;&lt;collection&gt;alm_license&lt;/collection&gt;&lt;condition/&gt;&lt;content_type&gt;text/html&lt;/content_type&gt;&lt;default_interval/&gt;&lt;description/&gt;&lt;digest_from/&gt;&lt;digest_html/&gt;&lt;digest_reply_to/&gt;&lt;digest_separator_html&gt;&lt;![CDATA[&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;]]&gt;&lt;/digest_separator_html&gt;&lt;digest_separator_text&gt;&lt;![CDATA[\n--------------------------------------------------------------------------------\n]]&gt;&lt;/digest_separator_text&gt;&lt;digest_subject/&gt;&lt;digest_template/&gt;&lt;digest_text/&gt;&lt;digestable&gt;false&lt;/digestable&gt;&lt;enable_dynamic_translation&gt;false&lt;/enable_dynamic_translation&gt;&lt;event_name&gt;licenses_expiration_before_30_60_90_days&lt;/event_name&gt;&lt;event_parm_1&gt;false&lt;/event_parm_1&gt;&lt;event_parm_2&gt;true&lt;/event_parm_2&gt;&lt;exclude_delegates&gt;false&lt;/exclude_delegates&gt;&lt;force_delivery&gt;false&lt;/force_delivery&gt;&lt;from/&gt;&lt;generation_type&gt;event&lt;/generation_type&gt;&lt;importance/&gt;&lt;include_attachments&gt;false&lt;/include_attachments&gt;&lt;item&gt;event.parm1&lt;/item&gt;&lt;item_table/&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;message/&gt;&lt;message_html&gt;&lt;![CDATA[&lt;p&gt;Dear License Owner,&lt;br /&gt;&lt;br /&gt;Below License Entitlements and/or Maintenance are expiring within 30, 60, and 90 days. Please initiate the validation and renewal process promptly to ensure timely renewal.&lt;br /&gt;${mail_script:entitlements_expiration_template}&amp;nbsp;&lt;br /&gt;Thank you.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;Regards,&lt;br /&gt;IT Asset Management Team&lt;/p&gt;]]&gt;&lt;/message_html&gt;&lt;message_list/&gt;&lt;message_text/&gt;&lt;name&gt;Licenses Expiration in 30_60_90_days&lt;/name&gt;&lt;omit_watermark&gt;false&lt;/omit_watermark&gt;&lt;order&gt;100&lt;/order&gt;&lt;push_message_only&gt;false&lt;/push_message_only&gt;&lt;recipient_fields/&gt;&lt;recipient_groups/&gt;&lt;recipient_users/&gt;&lt;reply_to/&gt;&lt;send_self&gt;true&lt;/send_self&gt;&lt;sms_alternate/&gt;&lt;style/&gt;&lt;subject&gt;Renewal Reminder - License Entitlements and/or Maintenance Expiring in 30, 60, and 90 Days&lt;/subject&gt;&lt;subscribable&gt;false&lt;/subscribable&gt;&lt;sys_class_name&gt;sysevent_email_action&lt;/sys_class_name&gt;&lt;sys_created_by&gt;ms236096&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-02-16 12:42:03&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;5b2afe831b540e50315d97d2164bcb21&lt;/sys_id&gt;&lt;sys_mod_count&gt;15&lt;/sys_mod_count&gt;&lt;sys_name&gt;Licenses Expiration in 30_60_90_days&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sysevent_email_action_5b2afe831b540e50315d97d2164bcb21&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;ms236096&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-02-25 17:26:29&lt;/sys_updated_on&gt;&lt;sys_version&gt;2&lt;/sys_version&gt;&lt;template display_value="TimeCard"&gt;7ed0481f3b0b2200c869c2c703efc487&lt;/template&gt;&lt;type&gt;email&lt;/type&gt;&lt;weight&gt;0&lt;/weight&gt;&lt;/sysevent_email_action&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-2077551231</payload_hash>
+<remote_update_set display_value="ServiceNow_Notification_Use_Case_1_v1.0">122c9e0e1ba40290315d97d2164bcb9b</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>ms236096</sys_created_by>
+<sys_created_on>2024-02-25 17:29:12</sys_created_on>
+<sys_id>562c9e0e1ba40290315d97d2164bcb9b</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>18de14dcffa0000001</sys_recorded_at>
+<sys_updated_by>ms236096</sys_updated_by>
+<sys_updated_on>2024-02-25 17:29:12</sys_updated_on>
+<table>alm_license</table>
+<target_name>Licenses Expiration in 30_60_90_days</target_name>
+<type>Notification</type>
+<update_domain>global</update_domain>
+<update_guid>628bd20e09a40290f2130fc08f764818</update_guid>
+<update_guid_history>628bd20e09a40290f2130fc08f764818:-2077551231,6de99e4adaa4029054049cbc4c727f2b:-1094137692,bc6aa8358c24429038fb8a74d942295c:-2077551231,40206348e2608a10425ab9c3e02cd541:67637761,b2250b8824e84a1077c0a6a216741a3e:39389870,dd7606c087a40a104fced2bc075bf82a:1221931643,cb554a8c7d640a108dda5a3c2c8cc74c:-173109748,7d340e0824640a10fed0fdbf1a7d4625:2027242144,207a414092e0c6101332e8afb94369c5:1164379932,a2a8c9080ca0c610932946d0cd679f99:-761094207,e2c49f8f30580e50229b374d15f216fa:-1546527791,4c04178f6c580e506aa22f1c9c24deea:-1505631864,79ddcbc79c580e507d07cf7f0bdab667:610167046,52b4030b45d40e500e86be9bab378390:1633000085,6c548707c0d40e50a7d95cf9f558827c:289189474,ac2403871fd40e50587736dbd6e153c8:-559979036</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sysevent_register_69b30f071bd40e50315d97d2164bcb06</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sysevent_register"><sysevent_register action="INSERT_OR_UPDATE"><caller_access/><derived_priority>100</derived_priority><description/><event_name>licenses_expiration_before_30_60_90_days</event_name><fired_by>Schedule Job: Entitlements Expiration Before 30, 60, And 90 Days</fired_by><priority>100</priority><queue/><suffix/><sys_class_name>sysevent_register</sys_class_name><sys_created_by>ms236096</sys_created_by><sys_created_on>2024-02-16 12:41:27</sys_created_on><sys_id>69b30f071bd40e50315d97d2164bcb06</sys_id><sys_mod_count>4</sys_mod_count><sys_name>licenses_expiration_before_30_60_90_days</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sysevent_register_69b30f071bd40e50315d97d2164bcb06</sys_update_name><sys_updated_by>ms236096</sys_updated_by><sys_updated_on>2024-02-25 17:18:20</sys_updated_on><table>alm_license</table></sysevent_register></record_update>]]></payload>
+<payload_hash>-980622952</payload_hash>
+<remote_update_set display_value="ServiceNow_Notification_Use_Case_1_v1.0">122c9e0e1ba40290315d97d2164bcb9b</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>ms236096</sys_created_by>
+<sys_created_on>2024-02-25 17:29:12</sys_created_on>
+<sys_id>5e2c9e0e1ba40290315d97d2164bcb9b</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>18de14658ff0000001</sys_recorded_at>
+<sys_updated_by>ms236096</sys_updated_by>
+<sys_updated_on>2024-02-25 17:29:12</sys_updated_on>
+<table>alm_license</table>
+<target_name>licenses_expiration_before_30_60_90_days</target_name>
+<type>Event Registration</type>
+<update_domain>global</update_domain>
+<update_guid>8ba99e4ae1a402904ba3eacaf8621642</update_guid>
+<update_guid_history>8ba99e4ae1a402904ba3eacaf8621642:-980622952,51899ac6f3a40290540f53eaeed71339:-1002570423,0bcf1b0837608a100c2ed2bd15d9e148:-980622952,2b14094c1eec8610fb0bd3ac44035922:-1544456006,fff3c3c347d40e5060a12ddf6088d0df:-1137465989</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>

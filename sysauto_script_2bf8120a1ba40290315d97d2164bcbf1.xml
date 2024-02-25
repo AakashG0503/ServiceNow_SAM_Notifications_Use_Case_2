@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2024-02-25 17:23:07">
+<sysauto_script action="INSERT_OR_UPDATE">
+<active>true</active>
+<business_calendar display_value=""/>
+<condition/>
+<conditional>false</conditional>
+<entered_time/>
+<max_drift/>
+<name>Entitlements Expiration Before 30, 60, And 90 Days</name>
+<offset/>
+<offset_type>0</offset_type>
+<run_as display_value="Aakash Garg">65f980ec1b2a39d0fdfca712f54bcbcc</run_as>
+<run_as_tz/>
+<run_dayofmonth>1</run_dayofmonth>
+<run_dayofweek>1</run_dayofweek>
+<run_period/>
+<run_start>2024-02-25 17:15:21</run_start>
+<run_time>1969-12-31 16:30:00</run_time>
+<run_type>daily</run_type>
+<script><![CDATA[var sw_names = [];
+var licenses = new GlideRecord('alm_license');
+licenses.addEncodedQuery('product_typeNOT INfull,upgrade^end_dateRELATIVEGT@dayofweek@ahead@29^end_dateRELATIVELT@dayofweek@ahead@31^NQend_dateRELATIVEGT@dayofweek@ahead@59^end_dateRELATIVELT@dayofweek@ahead@61^NQend_dateRELATIVEGT@dayofweek@ahead@89^end_dateRELATIVELT@dayofweek@ahead@91');
+licenses.query();
+while (licenses.next()) {
+    sw_names.push(licenses.owned_by.sys_id.toString());
+}
+var uniqueArray = [];
+for (var i = 0; i < sw_names.length; i++) {
+    if (uniqueArray.indexOf(sw_names[i]) === -1) {
+        uniqueArray.push(sw_names[i]);
+    }
+}
+var arr = [];
+for (var j = 0; j < uniqueArray.length; j++) {
+    arr = [];
+    var licenses2 = new GlideRecord('alm_license');
+    licenses2.addEncodedQuery('product_typeNOT INfull,upgrade^end_dateRELATIVEGT@dayofweek@ahead@29^end_dateRELATIVELT@dayofweek@ahead@31^NQend_dateRELATIVEGT@dayofweek@ahead@59^end_dateRELATIVELT@dayofweek@ahead@61^NQend_dateRELATIVEGT@dayofweek@ahead@89^end_dateRELATIVELT@dayofweek@ahead@91');
+    licenses2.addQuery('owned_by', uniqueArray[j]);
+    licenses2.query();
+    while (licenses2.next()) {
+        arr.push(licenses2.sys_id.toString());
+    }
+    gs.eventQueue('licenses_expiration_before_30_60_90_days', licenses2, arr, uniqueArray[j]);
+}]]></script>
+<sys_class_name>sysauto_script</sys_class_name>
+<sys_created_by>ms236096</sys_created_by>
+<sys_created_on>2024-02-25 17:16:36</sys_created_on>
+<sys_id>2bf8120a1ba40290315d97d2164bcbf1</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_name>Entitlements Expiration Before 30, 60, And 90 Days</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sysauto_script_2bf8120a1ba40290315d97d2164bcbf1</sys_update_name>
+<sys_updated_by>ms236096</sys_updated_by>
+<sys_updated_on>2024-02-25 17:16:36</sys_updated_on>
+<time_zone/>
+<upgrade_safe>false</upgrade_safe>
+</sysauto_script>
+</unload>
